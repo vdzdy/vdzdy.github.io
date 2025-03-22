@@ -1,0 +1,186 @@
+/* 通用样式 */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f8f9fa; /* 柔和的浅灰色背景 */
+    color: #333; /* 主体文字颜色 */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f8f9fa;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+/* 头部样式 */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header nav aside#sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* 初始将侧边栏往左移到屏幕外隐藏 */
+    width: 250px;
+    height: 100%;
+    background-color: #007bff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: block; /* 修改为显示，后续通过动画控制隐藏 */
+    z-index: 1;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+}
+
+header nav aside#sidebar.toggle-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.1); /* 按钮添加半透明背景 */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+header nav aside#sidebar.toggle-btn:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* 鼠标悬停时按钮背景色加深 */
+}
+
+header nav aside#sidebar.toggle-btn span {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+header nav aside#sidebar.toggle-btn.menu-title {
+    font-size: 16px;
+}
+
+header nav aside#sidebar.nav-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav aside#sidebar.nav-menu li {
+    margin: 0;
+    text-align: left;
+    padding: 0 15px;
+}
+
+header nav aside#sidebar.nav-menu li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+header nav aside#sidebar.nav-menu li a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+header nav aside#sidebar.nav-menu li a:hover::after {
+    width: 100%;
+}
+
+header nav aside#sidebar.nav-menu li a:hover {
+    background-color: #0056b3;
+    color: #f8f9fa;
+}
+
+/* 主体内容样式 */
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-left: 20px; /* 为侧边栏腾出空间，这里根据侧边栏初始位置调整 */
+    flex: 1;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+main.intro h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+main.content-section {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+main.content-section h2 {
+    font-size: 24px;
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 8px;
+}
+
+main.content-section p {
+    margin-bottom: 15px;
+}
+
+main.content-section.link-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+main.content-section.link-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 页脚样式 */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #e9ecef;
+    color: #6c757d;
+}
