@@ -1,44 +1,45 @@
+<!-- page3.html -->
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VD的博客 - 第3页</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
-
 <body>
-    <header>
-        <nav>
-            <div class="toggle-btn" onclick="toggleMenu()">
-                <span>&gt;</span>
-                <span class="menu-title">目录</span>
-            </div>
-        </nav>
-    </header>
+    <div class="toggle-btn" onclick="toggleMenu()">
+        <span class="menu-icon">☰</span>
+        <span class="menu-title">目录</span>
+    </div>
 
-    <main>
-        <div class="content-section">
-            <h2>第3页趣味分享</h2>
-            <p>这是第3页呈现给大家的独特内容哦，和第1页可以是完全不同的主题，比如可以是关于美食的探索经历，或是一本好书的深度解读等等，尽情在这发挥你的创意填充内容吧。</p>
-        </div>
-    </main>
-
-    <aside id="sidebar">
-        <ul id="nav-menu" class="nav-menu">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="page2.html">第1页</a></li>
-            <li><a href="page3.html">第3页</a></li>
+    <aside id="sidebar" class="sidebar">
+        <ul class="nav-menu">
+            <li><a href="index.html">🏠 首页</a></li>
+            <li><a href="page1.html">📄 第1页</a></li>
+            <li><a href="page2.html">📄 第2页</a></li>
+            <li><a href="page3.html" class="active">📚 第3页</a></li>
         </ul>
     </aside>
 
+    <main>
+        <div class="content-section">
+            <h2>📚 第3页深度内容</h2>
+            <p>这里是第3页的专题内容...</p>
+            <div class="content-card">
+                <h3>技术分享</h3>
+                <p>感兴趣的可以在第1页看看我的《Windows安装程序移除限制 最新》，最近准备拍摄这个病毒👊，目前还是beta版本，欢迎大家体验！</p>
+                <p>后续还需完善，直到我把这个病毒做成完整的视频，并发视频，欢迎大家观看我的b站账号：SYSTEM-VD-ZDY（点赞过10直接开源）</p>
+                <p>还请大家多多支持！👊💪（懂得都懂👏）<p>
+            </div>
+        </div>
+    </main>
+
     <footer>
-        <p>&copy;SYSTEM-VD-ZDY Copyright</p>
-        <p>bilibili:SYSTEM-VD-ZDY</p>
-        <p>作者QQ334063894</p>
+        <p>&copy; SYSTEM-VD-ZDY Copyright</p>
+        <p>📺 bilibili: SYSTEM-VD-ZDY</p>
+        <p>📧 作者联系邮箱:vdzdy@foxmail.com</p>
     </footer>
 </body>
-
 </html>
