@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+by-vdzdy（lzf）
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>父亲节快乐 - 特别的爱给特别的您</title>
@@ -452,6 +453,23 @@
                 font-size: 1.2rem;
             }
         }
+        
+        /* 音乐提示 */
+        .music-prompt {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: rgba(255, 179, 0, 0.9);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease, float 3s ease-in-out infinite;
+            z-index: 90;
+            font-size: 0.9rem;
+            max-width: 200px;
+            display: none;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -462,9 +480,14 @@
     <div class="decoration mustache" style="top: 70%; left: 8%; animation: float 9s infinite ease-in-out 1s;"></div>
     <div class="decoration mustache" style="top: 80%; right: 10%; animation: float 6s infinite ease-in-out 1.5s;"></div>
     
+    <!-- 音乐提示 -->
+    <div class="music-prompt" id="musicPrompt">
+        <i class="fas fa-volume-up"></i> 音乐已自动播放
+    </div>
+    
     <!-- 音乐控制 -->
     <div class="music-control" id="musicControl">
-        <i class="fas fa-music"></i>
+        <i class="fas fa-pause"></i>
     </div>
     
     <!-- 主容器 -->
@@ -482,7 +505,7 @@
                 <p>输入您父亲的名字，生成一份特别的祝福</p>
                 
                 <div class="input-group">
-                    <input type="text" class="name-input" id="fatherName" placeholder="请输入父亲的名字...">
+                    <input type="text" class="name-input" id="fatherName" placeholder="请输入您的名字">
                     <button class="submit-btn" id="generateBtn">
                         <i class="fas fa-heart"></i> 生成祝福
                     </button>
@@ -545,7 +568,7 @@
     
     <!-- 音频元素 -->
     <audio id="backgroundMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://foruda.gitee.com/attach_file/1749959674410391522/%E5%9B%9B%E7%82%B9%E7%9A%84%E6%B5%B7%E6%A3%A0%E8%8A%B1%E6%9C%AA%E7%9C%A0-%E6%B8%A1.mp3?token=a3172cdf1f845692ede18bf801afafb0&ts=1749959797&attname=%E5%9B%9B%E7%82%B9%E7%9A%84%E6%B5%B7%E6%A3%A0%E8%8A%B1%E6%9C%AA%E7%9C%A0%20-%20%E6%B8%A1.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -553,22 +576,64 @@
         document.addEventListener('DOMContentLoaded', function() {
             const musicControl = document.getElementById('musicControl');
             const backgroundMusic = document.getElementById('backgroundMusic');
+            const musicPrompt = document.getElementById('musicPrompt');
             const generateBtn = document.getElementById('generateBtn');
             const inputSection = document.getElementById('inputSection');
             const wishContent = document.getElementById('wishContent');
             const fatherNameInput = document.getElementById('fatherName');
             const displayName = document.getElementById('displayName');
             
-            // 音乐控制
+            // 音乐控制状态
             let isPlaying = false;
             
+            // 尝试自动播放音乐（考虑浏览器限制）
+            function tryAutoPlay() {
+                const playPromise = backgroundMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // 自动播放成功
+                        isPlaying = true;
+                        musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                        showMusicPrompt();
+                    }).catch(error => {
+                        // 自动播放失败（通常由于浏览器策略）
+                        console.log("自动播放被阻止，需要用户交互");
+                        backgroundMusic.muted = true; // 静音作为后备方案
+                        backgroundMusic.play();
+                        isPlaying = true;
+                        musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    });
+                }
+            }
+            
+            // 显示音乐提示
+            function showMusicPrompt() {
+                musicPrompt.style.display = 'block';
+                setTimeout(() => {
+                    musicPrompt.style.opacity = '0';
+                    setTimeout(() => {
+                        musicPrompt.style.display = 'none';
+                        musicPrompt.style.opacity = '1';
+                    }, 500);
+                }, 3000);
+            }
+            
+            // 初始化音乐
+            tryAutoPlay();
+            
+            // 音乐控制按钮
             musicControl.addEventListener('click', function() {
                 if (isPlaying) {
                     backgroundMusic.pause();
-                    musicControl.innerHTML = '<i class="fas fa-music"></i>';
+                    musicControl.innerHTML = '<i class="fas fa-play"></i>';
                 } else {
-                    backgroundMusic.play().catch(e => console.log("自动播放被阻止，请手动播放"));
+                    backgroundMusic.play().catch(e => {
+                        console.log("播放失败:", e);
+                    });
                     musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                    // 如果之前是静音状态，解除静音
+                    backgroundMusic.muted = false;
                 }
                 isPlaying = !isPlaying;
             });
