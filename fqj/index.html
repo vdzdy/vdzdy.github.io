@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>父亲节快乐 - 特别的爱给特别的您</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #FFF8E1; /* 浅黄色背景 */
+            --secondary: #5D4037; /* 深棕色 */
+            --accent: #FFB300; /* 金色点缀 */
+            --text: #4E342E; /* 深棕色文字 */
+            --highlight: #FF7043; /* 强调色 */
+            --shadow: rgba(93, 64, 55, 0.2);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 装饰元素 */
+        .decoration {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.1;
+        }
+        
+        .tie {
+            width: 80px;
+            height: 120px;
+            background-color: var(--secondary);
+            clip-path: polygon(50% 100%, 0 0, 100% 0);
+        }
+        
+        .mustache {
+            width: 100px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .mustache::before, .mustache::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 0 0 0 50px;
+            border-bottom: 8px solid var(--secondary);
+            border-left: 8px solid var(--secondary);
+            top: -15px;
+        }
+        
+        .mustache::before {
+            left: -25px;
+            transform: rotate(45deg);
+        }
+        
+        .mustache::after {
+            right: -25px;
+            transform: rotate(-45deg);
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 头部 */
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        
+        .logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* 卡片样式 */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px var(--shadow);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 179, 0, 0.1), transparent);
+            transform: rotate(45deg);
+            z-index: -1;
+        }
+        
+        /* 输入区域 */
+        .input-section {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .input-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .input-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        
+        .name-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .name-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(255, 179, 0, 0.3);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, var(--secondary), var(--highlight));
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(255, 112, 67, 0.3);
+        }
+        
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .submit-btn:hover::after {
+            left: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(255, 112, 67, 0.4);
+        }
+        
+        /* 祝福内容 */
+        .wish-content {
+            display: none;
+            text-align: center;
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .father-name {
+            font-size: 3rem;
+            color: var(--highlight);
+            margin: 1.5rem 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        .wish-text {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .wish-text::before, .wish-text::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--accent);
+            position: absolute;
+            opacity: 0.3;
+        }
+        
+        .wish-text::before {
+            top: -20px;
+            left: -30px;
+        }
+        
+        .wish-text::after {
+            bottom: -50px;
+            right: -30px;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 2s forwards;
+        }
+        
+        /* 图片区域 */
+        .photo-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+        }
+        
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+            position: relative;
+            transform: rotate(-5deg);
+            transition: all 0.5s ease;
+        }
+        
+        .photo-frame:nth-child(even) {
+            transform: rotate(5deg);
+        }
+        
+        .photo-frame:hover {
+            transform: rotate(0) scale(1.05);
+            z-index: 2;
+        }
+        
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #FFECB3, #FFCC80);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--secondary);
+        }
+        
+        /* 祝福卡片 */
+        .wish-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .wish-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px var(--shadow);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .wish-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .wish-card i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .wish-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .wish-card p {
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* 音乐控制 */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .music-control:hover {
+            transform: scale(1.1);
+            background: var(--highlight);
+        }
+        
+        .music-control i {
+            font-size: 1.5rem;
+        }
+        
+        /* 动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .input-title {
+                font-size: 1.8rem;
+            }
+            
+            .father-name {
+                font-size: 2.5rem;
+            }
+            
+            .wish-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 背景装饰元素 -->
+    <div class="decoration tie" style="top: 10%; left: 5%; animation: float 8s infinite ease-in-out;"></div>
+    <div class="decoration tie" style="top: 15%; right: 7%; transform: rotate(30deg); animation: float 7s infinite ease-in-out 0.5s;"></div>
+    <div class="decoration mustache" style="top: 70%; left: 8%; animation: float 9s infinite ease-in-out 1s;"></div>
+    <div class="decoration mustache" style="top: 80%; right: 10%; animation: float 6s infinite ease-in-out 1.5s;"></div>
+    
+    <!-- 音乐控制 -->
+    <div class="music-control" id="musicControl">
+        <i class="fas fa-music"></i>
+    </div>
+    
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <h1 class="logo">父亲节快乐</h1>
+            <p>在这个特别的日子，献上我最深的祝福</p>
+        </header>
+        
+        <!-- 输入区域卡片 -->
+        <div class="card">
+            <div class="input-section" id="inputSection">
+                <h2 class="input-title">致我最亲爱的爸爸</h2>
+                <p>输入您父亲的名字，生成一份特别的祝福</p>
+                
+                <div class="input-group">
+                    <input type="text" class="name-input" id="fatherName" placeholder="请输入父亲的名字...">
+                    <button class="submit-btn" id="generateBtn">
+                        <i class="fas fa-heart"></i> 生成祝福
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 祝福内容 -->
+            <div class="wish-content" id="wishContent">
+                <h2 class="input-title">父亲节祝福</h2>
+                <div class="father-name" id="displayName">爸爸</div>
+                
+                <div class="wish-text">
+                    您是我生命中最伟大的英雄，用智慧和勇气将我抚养长大。感谢您一直以来的默默付出和无尽的爱。在这个特别的日子里，愿您感受到我对您深深的爱与敬意。祝您父亲节快乐，愿您永远健康、幸福！
+                </div>
+                
+                <div class="signature">爱您的孩子 ❤️</div>
+            </div>
+        </div>
+        
+        <!-- 照片区域 -->
+        <div class="photo-section">
+            <div class="photo-frame">
+                <div class="photo-placeholder">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <div class="photo-frame">
+                <div class="photo-placeholder">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            <div class="photo-frame">
+                <div class="photo-placeholder">
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 祝福卡片区域 -->
+        <div class="wish-cards">
+            <div class="wish-card">
+                <i class="fas fa-hands-helping"></i>
+                <h3>无私的奉献</h3>
+                <p>您总是默默付出，不求回报，用坚实的臂膀为我们撑起一片天。</p>
+            </div>
+            
+            <div class="wish-card">
+                <i class="fas fa-book"></i>
+                <h3>智慧的导师</h3>
+                <p>您教会我人生的道理，是我成长道路上最重要的引路人。</p>
+            </div>
+            
+            <div class="wish-card">
+                <i class="fas fa-laugh-beam"></i>
+                <h3>快乐的源泉</h3>
+                <p>您的笑容是我最大的幸福，愿您永远开心快乐！</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 音频元素 -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const musicControl = document.getElementById('musicControl');
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            const generateBtn = document.getElementById('generateBtn');
+            const inputSection = document.getElementById('inputSection');
+            const wishContent = document.getElementById('wishContent');
+            const fatherNameInput = document.getElementById('fatherName');
+            const displayName = document.getElementById('displayName');
+            
+            // 音乐控制
+            let isPlaying = false;
+            
+            musicControl.addEventListener('click', function() {
+                if (isPlaying) {
+                    backgroundMusic.pause();
+                    musicControl.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    backgroundMusic.play().catch(e => console.log("自动播放被阻止，请手动播放"));
+                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // 生成祝福
+            generateBtn.addEventListener('click', function() {
+                const name = fatherNameInput.value.trim() || '爸爸';
+                displayName.textContent = name;
+                
+                // 添加动画效果
+                inputSection.style.opacity = '0';
+                inputSection.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    inputSection.style.display = 'none';
+                    wishContent.style.display = 'block';
+                }, 500);
+            });
+            
+            // 添加装饰元素
+            function createDecoration() {
+                const decorations = ['tie', 'mustache'];
+                const container = document.body;
+                
+                for (let i = 0; i < 10; i++) {
+                    const decoType = decorations[Math.floor(Math.random() * decorations.length)];
+                    const deco = document.createElement('div');
+                    deco.className = `decoration ${decoType}`;
+                    
+                    // 随机位置
+                    const top = Math.random() * 100;
+                    const left = Math.random() * 100;
+                    const rotation = Math.random() * 360;
+                    
+                    deco.style.top = `${top}%`;
+                    deco.style.left = `${left}%`;
+                    deco.style.transform = `rotate(${rotation}deg)`;
+                    deco.style.opacity = 0.1 + Math.random() * 0.1;
+                    deco.style.animation = `float ${8 + Math.random() * 5}s infinite ease-in-out ${Math.random() * 2}s`;
+                    
+                    container.appendChild(deco);
+                }
+            }
+            
+            createDecoration();
+        });
+    </script>
+</body>
+</html>
